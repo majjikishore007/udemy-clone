@@ -1,10 +1,15 @@
 const express = require('express');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
-const {PORT}=require('./config.js')
+const { PORT, DB_URL } = require("./config.js");
 
 const app = express();
+
+// swagger setup
 
 const swaggerDocs = swaggerJsDoc({
   swaggerDefinition: {
@@ -18,7 +23,7 @@ const swaggerDocs = swaggerJsDoc({
       },
       servers: [
         {
-          url: `http://localhost:${PORT|| 9090}/`,
+          url: `http://localhost:${PORT || 9090}/`,
         },
       ],
     },
@@ -26,9 +31,29 @@ const swaggerDocs = swaggerJsDoc({
   apis: ["routes/*.js"],
 });
 
+// middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
+
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// database
+mongoose
+  .connect(DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("💚 DB IS CONNECTED");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
-app.listen(PORT|| 9090, (req, res) => {
-    console.log(`Server is running on port ${PORT}`);
-})
+// server startup
+
+app.listen(PORT, () => {
+  console.log(`💚 💙 💛 app is  listening on ${PORT}`);
+});
