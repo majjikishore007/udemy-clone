@@ -1,35 +1,15 @@
-const express = require('express');
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const { PORT, DB_URL } = require("./config.js");
 
+const authRoutes = require("./routes/auth");
+const coursesRoutes = require("./routes/courses");
+const userRoutes = require("./routes/user");
+
 const app = express();
-
-// swagger setup
-
-const swaggerDocs = swaggerJsDoc({
-  swaggerDefinition: {
-    info: {
-      version: "1.0.0",
-      title: "UdemyClone",
-      description: "Udemy clone api docs",
-      contact: {
-        name: "API Support",
-        url: "",
-      },
-      servers: [
-        {
-          url: `http://localhost:${PORT || 9090}/`,
-        },
-      ],
-    },
-  },
-  apis: ["routes/*.js"],
-});
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
@@ -37,8 +17,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+//routes
 
+app.use("/api", authRoutes);
+app.use("/api/", userRoutes);
+app.use("/api/", coursesRoutes);
 // database
 mongoose
   .connect(DB_URL, {
