@@ -6,7 +6,20 @@
   </a>
 </p>
 
-> a course selling patfrom backend
+## Postman Workspace
+<a   href="https://app.getpostman.com/join-team?invite_code=2060d0354050fa4730286b2150931df6&target_code=afa6bb70534ec577a16df9f87f86fc9a">Postman Workspace</a>
+
+## Demo url
+
+<a href="https://udemy-clone-production.up.railway.app/">
+Hosted link
+</a>
+
+
+
+
+
+a course selling patfrom backend
 
 ## Install
 
