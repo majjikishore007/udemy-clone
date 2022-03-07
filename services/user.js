@@ -38,3 +38,55 @@ exports.updateUser = (req, res) => {
     }
   );
 };
+exports.deleteUser = (req, res) => {
+  User.deleteOne({ id: req.profile._id }, (err, deletedUser) => {
+    if (err) {
+      return res.status(400).json({
+        error: `unable to remove user ${deletedUser}`,
+      });
+    }
+    res.json({
+      message: `successfuly removed the user ${deletedUser}`,
+    });
+  });
+};
+exports.getEnrolledList = (req, res) => {
+  User.findOne({ id: req.profile._id })
+    .select("enrolled")
+    .exec((err, enrolled) => {
+      if (err) {
+        return res.status(404).json({
+          error: "No enrolled courses",
+        });
+      }
+      res.json(enrolled);
+    });
+};
+
+exports.addEnrollmentInUserList = (req, res, next) => {
+  const { _id, name, description } = req.body.enrollment.course;
+  let enrollments = [];
+  enrollments.push({
+    _id: _id,
+    name: name,
+    description: description,
+    price: req.body.enrollment.price,
+    transaction_id: req.body.enrollment.transaction_id,
+  });
+  //storing in db
+
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $push: { enrollments: enrollments } },
+    { new: true },
+    (err, e) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Unable to save the purchase list ",
+        });
+      }
+      console.log("pused ::::::::", e);
+      next();
+    }
+  );
+};

@@ -24,5 +24,11 @@ var coursesSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+coursesSchema.methods = {
+  areSeatsFull: function () {
+    return this.seats < 0 ? true : false;
+  },
+};
+
 
 module.exports = mongoose.model("Course", coursesSchema);

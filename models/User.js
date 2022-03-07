@@ -24,6 +24,10 @@ var userSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    enrollments: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamp: true }
 );
