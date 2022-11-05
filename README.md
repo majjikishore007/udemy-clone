@@ -7,6 +7,7 @@
 </p>
 
 ## Postman Workspace
+
 <a   href="https://app.getpostman.com/join-team?invite_code=2060d0354050fa4730286b2150931df6&target_code=afa6bb70534ec577a16df9f87f86fc9a">Postman Workspace</a>
 
 ## Demo url
@@ -15,11 +16,7 @@
 Hosted link
 </a>
 
-
-
-
-
-a course selling patfrom backend
+A course selling patfrom backend
 
 ## Install
 
@@ -43,10 +40,10 @@ npm run test
 
 👤 **majjikishore**
 
-
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
